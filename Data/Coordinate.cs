@@ -17,7 +17,7 @@ namespace Cript.Data
         #endregion
 
         #region Variables
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Size)] [FieldOffset(0)] private byte[] _bytes;
+        [FieldOffset(0)] private byte[] _bytes;
         [FieldOffset(0)] private double _x;
         [FieldOffset(8)] private double _y;
         [FieldOffset(16)] private double _z;
