@@ -116,13 +116,12 @@ namespace Cript.Data
             double tu, tv;
             switch (axis)
             {
-                case Axis.Z:
-                default:
-                    if (XType == CoordinateType.Absolute || YType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
-                    tu = X;
-                    tv = Y;
-                    X = tu * cos - tv * sin;
-                    Y = tv * cos + tu * sin;
+                case Axis.X:
+                    if (ZType == CoordinateType.Absolute || YType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
+                    tu = Y;
+                    tv = Z;
+                    Y = tu * cos - tv * sin;
+                    Z = tv * cos + tu * sin;
                     break;
                 case Axis.Y:
                     if (XType == CoordinateType.Absolute || ZType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
@@ -131,12 +130,14 @@ namespace Cript.Data
                     Z = tu * cos - tv * sin;
                     X = tv * cos + tu * sin;
                     break;
-                case Axis.X:
-                    if (ZType == CoordinateType.Absolute || YType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
-                    tu = Y;
-                    tv = Z;
-                    Y = tu * cos - tv * sin;
-                    Z = tv * cos + tu * sin;
+                
+                case Axis.Z:
+                default:
+                    if (XType == CoordinateType.Absolute || YType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
+                    tu = X;
+                    tv = Y;
+                    X = tu * cos - tv * sin;
+                    Y = tv * cos + tu * sin;
                     break;
             }
         }
@@ -199,6 +200,11 @@ namespace Cript.Data
         }
         public override string ToString() => string.Format("{0}{1:0.00} {2}{3:0.00} {4}{5:0.00}", XType.Prefex(), X, YType.Prefex(), Y, ZType.Prefex(), Z);
         public string ToString(int decimalPlaces) => string.Format(string.Format("{{0}}{{1:{0}}} {{2}}{{3:{0}}} {{4}}{{5:{0}}}", "0." + new string('0', decimalPlaces)), XType.Prefex(), X, YType.Prefex(), Y, ZType.Prefex(), Z);
+        #endregion
+
+        #region Operators
+        public static Coordinate operator *(Coordinate a, double b) => a.HasAbsolute ? throw new ArgumentException("Cannot multiply absolute coordinates", "a") : new Coordinate(a.X * b, a.Y * b, a.Z * b, a.XType, a.YType, a.ZType);
+        public static Coordinate operator /(Coordinate a, double b) => a.HasAbsolute ? throw new ArgumentException("Cannot divide absolute coordinates", "a") : new Coordinate(a.X / b, a.Y / b, a.Z / b, a.XType, a.YType, a.ZType);
         #endregion
     }
 }
