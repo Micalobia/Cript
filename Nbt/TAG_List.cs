@@ -5,36 +5,43 @@ using System.Collections.Generic;
 
 namespace Cript.Nbt
 {
-    public sealed class TAG_List : TAG//, IEnumerable<TAG>
+    public sealed class TAG_List : TAG, IList<TAG>
     {
         public override sbyte ID => TAG_LIST;
-        internal List<TAG> value;
+
+        public int Count => ((IList<TAG>)values).Count;
+
+        public bool IsReadOnly => ((IList<TAG>)values).IsReadOnly;
+
+        public TAG this[int index] { get => ((IList<TAG>)values)[index]; set => ((IList<TAG>)values)[index] = value; }
+
+        internal List<TAG> values;
         internal sbyte type;
         public static TAG_List Empty(string name = null) => new TAG_List(name, TAG_END);
-        public override string ToString() => $"LIST({name}): {value.Count} tags";
+        public override string ToString() => $"{Name}:[{string.Join(",", values)}]";
         public TAG_List(string name = null, TAG_Type type = TAG_END, int capacity = 1) : this(name, type.Value(), null, 1) { }
-        public TAG_List(string name, sbyte type, List<TAG> value, int capacity) : base(name)
+        public TAG_List(string name, sbyte type, List<TAG> raw, int capacity) : base(name)
         {
-            this.value = value ?? new List<TAG>(capacity);
+            values = raw ?? new List<TAG>(capacity);
             this.type = type;
         }
         public void Add(TAG value)
         {
             switch (type)
             {
-                case TAG_END: this.value.Add(value as TAG_End ?? throw new Exception("Not a TAG_End")); break;
-                case TAG_BYTE: this.value.Add(value as TAG_Byte ?? throw new Exception("Not a TAG_Byte")); break;
-                case TAG_SHORT: this.value.Add(value as TAG_Short ?? throw new Exception("Not a TAG_Short")); break;
-                case TAG_INT: this.value.Add(value as TAG_Int ?? throw new Exception("Not a TAG_Int")); break;
-                case TAG_LONG: this.value.Add(value as TAG_Long ?? throw new Exception("Not a TAG_Long")); break;
-                case TAG_FLOAT: this.value.Add(value as TAG_Float ?? throw new Exception("Not a TAG_Float")); break;
-                case TAG_DOUBLE: this.value.Add(value as TAG_Double ?? throw new Exception("Not a TAG_Double")); break;
-                case TAG_BYTE_ARRAY: this.value.Add(value as TAG_Byte_Array ?? throw new Exception("Not a TAG_Byte_Array")); break;
-                case TAG_STRING: this.value.Add(value as TAG_String ?? throw new Exception("Not a TAG_String")); break;
-                case TAG_LIST: this.value.Add(value as TAG_List ?? throw new Exception("Not a TAG_List")); break;
-                case TAG_COMPOUND: this.value.Add(value as TAG_Compound ?? throw new Exception("Not a TAG_Compound")); break;
-                case TAG_INT_ARRAY: this.value.Add(value as TAG_Int_Array ?? throw new Exception("Not a TAG_Int_Array")); break;
-                case TAG_LONG_ARRAY: this.value.Add(value as TAG_Long_Array ?? throw new Exception("Not a TAG_Long_Array")); break;
+                case TAG_END: values.Add(value as TAG_End ?? throw new Exception("Not a TAG_End")); break;
+                case TAG_BYTE: values.Add(value as TAG_Byte ?? throw new Exception("Not a TAG_Byte")); break;
+                case TAG_SHORT: values.Add(value as TAG_Short ?? throw new Exception("Not a TAG_Short")); break;
+                case TAG_INT: values.Add(value as TAG_Int ?? throw new Exception("Not a TAG_Int")); break;
+                case TAG_LONG: values.Add(value as TAG_Long ?? throw new Exception("Not a TAG_Long")); break;
+                case TAG_FLOAT: values.Add(value as TAG_Float ?? throw new Exception("Not a TAG_Float")); break;
+                case TAG_DOUBLE: values.Add(value as TAG_Double ?? throw new Exception("Not a TAG_Double")); break;
+                case TAG_BYTE_ARRAY: values.Add(value as TAG_Byte_Array ?? throw new Exception("Not a TAG_Byte_Array")); break;
+                case TAG_STRING: values.Add(value as TAG_String ?? throw new Exception("Not a TAG_String")); break;
+                case TAG_LIST: values.Add(value as TAG_List ?? throw new Exception("Not a TAG_List")); break;
+                case TAG_COMPOUND: values.Add(value as TAG_Compound ?? throw new Exception("Not a TAG_Compound")); break;
+                case TAG_INT_ARRAY: values.Add(value as TAG_Int_Array ?? throw new Exception("Not a TAG_Int_Array")); break;
+                case TAG_LONG_ARRAY: values.Add(value as TAG_Long_Array ?? throw new Exception("Not a TAG_Long_Array")); break;
             }
         }
 
@@ -80,15 +87,25 @@ namespace Cript.Nbt
 
         protected internal override void WritePayload(BinaryDataWriter file)
         {
-            if (value.Count == 0)
+            if (values.Count == 0)
             {
                 WriteEmpty(file);
                 return;
             }
-            file.Write(value[0].ID);
-            file.Write(value.Count);
-            foreach (TAG t in value) t.WritePayload(file);
+            file.Write(values[0].ID);
+            file.Write(values.Count);
+            foreach (TAG t in this) t.WritePayload(file);
         }
+
+        public int IndexOf(TAG item) => ((IList<TAG>)values).IndexOf(item);
+        public void Insert(int index, TAG item) => ((IList<TAG>)values).Insert(index, item);
+        public void RemoveAt(int index) => ((IList<TAG>)values).RemoveAt(index);
+        public void Clear() => ((IList<TAG>)values).Clear();
+        public bool Contains(TAG item) => ((IList<TAG>)values).Contains(item);
+        public void CopyTo(TAG[] array, int arrayIndex) => ((IList<TAG>)values).CopyTo(array, arrayIndex);
+        public bool Remove(TAG item) => ((IList<TAG>)values).Remove(item);
+        public IEnumerator<TAG> GetEnumerator() => ((IList<TAG>)values).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IList<TAG>)values).GetEnumerator();
 
         //public IEnumerator<TAG> GetEnumerator()
         //{

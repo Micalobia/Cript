@@ -5,6 +5,7 @@ namespace Cript.Nbt
     public class TAG_End : TAG
     {
         public override sbyte ID => TAG_END;
+        public override string ToString() => "TAG_END";
         internal static void WriteEnd(BinaryDataWriter file) => file.Write((byte)0);
         protected internal override void WritePayload(BinaryDataWriter file) => WriteEnd(file);
         protected internal override void Write(BinaryDataWriter file) => WriteEnd(file);

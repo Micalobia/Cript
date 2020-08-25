@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cript.Nbt
 {
+    /// <summary>
+    /// Represets an NBT File, can be compressed or uncompressed
+    /// </summary>
     public sealed class NBTFile : TAG_Compound
     {
         /// <summary>

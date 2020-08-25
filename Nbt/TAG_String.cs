@@ -8,7 +8,7 @@ namespace Cript.Nbt
         private string value;
         public override sbyte ID => 8;
         public TAG_String(string name = null, string value = null) : base(name) => this.value = value ?? "";
-        public override string ToString() => $"STRING({name}): '{value}'";
+        public override string ToString() => $"{Name}:\"{value}\"";
         protected internal override void WritePayload(BinaryDataWriter file)
         {
             file.Write((short)value.Length);

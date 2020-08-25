@@ -15,7 +15,7 @@ namespace Cript.Nbt
 
         public int Count => tags.Count;
 
-        public override string ToString() => $"COMPOUND({name}): {tags.Count} tags";
+        public override string ToString() => $"{{{string.Join(",",tags)}}}";
         public TAG_Compound(string name = null, int capacity = 1) : this(name, null, capacity) { }
         internal TAG_Compound(string name, List<TAG> tags, int capacity = 1) : base(name) => this.tags = tags ?? new List<TAG>(capacity);
         public void Add(TAG tag) => tags.Add(tag);

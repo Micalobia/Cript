@@ -5,7 +5,7 @@ namespace Cript.Nbt
     public sealed class TAG_Double : TAG_Number<double>
     {
         public override sbyte ID => 6;
-        public override string ToString() => $"DOUBLE({name}): {value}";
+        public override string ToString() => $"{Name}:{value}d";
         public TAG_Double(string name = null, double? value = null) : base(name, value) { }
         protected internal override void WritePayload(BinaryDataWriter file) => file.Write(value);
         internal static double ReadPayload(BinaryDataReader file) => file.ReadDouble();

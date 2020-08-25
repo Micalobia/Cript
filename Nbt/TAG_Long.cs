@@ -5,7 +5,7 @@ namespace Cript.Nbt
     public sealed class TAG_Long : TAG_Number<long>
     {
         public override sbyte ID => 4;
-        public override string ToString() => $"LONG({name}): {value}";
+        public override string ToString() => $"{Name}:{value}L";
         public TAG_Long(string name = null, long? value = null) : base(name, value) { }
         protected internal override void WritePayload(BinaryDataWriter file) => file.Write(value);
         internal static long ReadPayload(BinaryDataReader file) => file.ReadInt64();
