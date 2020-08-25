@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.13.8\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="Syroot.BinaryData, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syroot.IO.BinaryData.4.0.4\lib\net45\Syroot.BinaryData.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,9 +50,33 @@
     <Compile Include="Data\Coordinate.cs" />
     <Compile Include="Data\Enums.cs" />
     <Compile Include="Data\ExecuteStatement.cs" />
-    <Compile Include="Data\Selector.cs" />
+    <Compile Include="Data\IntRange.cs" />
+    <Compile Include="Data\ScoreboardCheck.cs" />
+    <Compile Include="Data\Tag.cs" />
+    <Compile Include="Data\TargetSelector.cs" />
+    <Compile Include="Nbt\NBTFile.cs" />
+    <Compile Include="Nbt\TAG.cs" />
+    <Compile Include="Nbt\TAG_Byte.cs" />
+    <Compile Include="Nbt\TAG_Byte_Array.cs" />
+    <Compile Include="Nbt\TAG_Compound.cs" />
+    <Compile Include="Nbt\TAG_Double.cs" />
+    <Compile Include="Nbt\TAG_End.cs" />
+    <Compile Include="Nbt\TAG_Float.cs" />
+    <Compile Include="Nbt\TAG_Int.cs" />
+    <Compile Include="Nbt\TAG_Int_Array.cs" />
+    <Compile Include="Nbt\TAG_List.cs" />
+    <Compile Include="Nbt\TAG_Long.cs" />
+    <Compile Include="Nbt\TAG_Long_Array.cs" />
+    <Compile Include="Nbt\TAG_Number.cs" />
+    <Compile Include="Nbt\TAG_Number_Array.cs" />
+    <Compile Include="Nbt\TAG_Short.cs" />
+    <Compile Include="Nbt\TAG_String.cs" />
+    <Compile Include="Nbt\TAG_Type.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

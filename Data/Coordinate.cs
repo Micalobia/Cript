@@ -8,22 +8,15 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    [StructLayout(LayoutKind.Explicit, Size = Size, Pack = Pack)]
     struct Coordinate
     {
-        #region Constants
-        public const int Size = 27;
-        public const int Pack = 32;
-        #endregion
-
         #region Variables
-        [FieldOffset(0)] private byte[] _bytes;
-        [FieldOffset(0)] private double _x;
-        [FieldOffset(8)] private double _y;
-        [FieldOffset(16)] private double _z;
-        [FieldOffset(24)] private CoordinateType _xType;
-        [FieldOffset(25)] private CoordinateType _yType;
-        [FieldOffset(26)] private CoordinateType _zType;
+        private double _x;
+        private double _y;
+        private double _z;
+        private CoordinateType _xType;
+        private CoordinateType _yType;
+        private CoordinateType _zType;
         #endregion
 
         #region Public Properties
@@ -51,28 +44,6 @@ namespace Cript.Data
                 return ret;
             }
         }
-        public byte[] Bytes
-        {
-            get
-            {
-                if (_bytes == null)
-                {
-                    using (MemoryStream m = new MemoryStream(new byte[Size]))
-                    using (BinaryWriter b = new BinaryWriter(m))
-                    {
-                        b.Write(X);
-                        b.Write(Y);
-                        b.Write(Z);
-                        b.Write((byte)XType);
-                        b.Write((byte)YType);
-                        b.Write((byte)ZType);
-                        m.Seek(0, SeekOrigin.Begin);
-                        _bytes = m.ToArray();
-                    }
-                }
-                return _bytes;
-            }
-        }
         public bool IsLocal => XType == CoordinateType.Local && YType == CoordinateType.Local && ZType == CoordinateType.Local;
         #endregion
 
@@ -81,12 +52,10 @@ namespace Cript.Data
         #endregion
 
         #region Constructors
-        public Coordinate(byte[] bytes) : this() => _bytes = bytes;
         public Coordinate(double x, double y, double z) : this(x, y, z, CoordinateType.Absolute) { }
         public Coordinate(double x, double y, double z, CoordinateType type) : this(x, y, z, type, type, type) { }
         public Coordinate(double x, double y, double z, CoordinateType xType, CoordinateType yType, CoordinateType zType)
         {
-            _bytes = new byte[Size];
             _x = x;
             _y = y;
             _z = z;

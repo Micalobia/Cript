@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cript
 {
-    public class Class1
+    public class Processor
     {
     }
 }

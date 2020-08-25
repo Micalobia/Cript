@@ -37,9 +37,10 @@ namespace Cript.Data
     {
         None = 0,
         P = 1,
-        A = 2,
-        E = 3,
-        S = 4,
+        R = 2,
+        A = 3,
+        E = 4,
+        S = 5,
     }
 
     public enum CoordinateType : byte
@@ -56,6 +57,135 @@ namespace Cript.Data
         Z = 2
     }
 
+    public enum TargetSorting
+    {
+        Nearest = 0,
+        Furthest = 1,
+        Random = 2,
+        Arbitrary = 3,
+        None = 4
+    }
+
+    public enum Gamemode
+    {
+        Survival = 0,
+        Creative = 1,
+        Adventure = 2,
+        Spectator = 3,
+        None = 4
+    }
+
+    public enum EntityType
+    {
+        None,
+        AreaEffectCloud,
+        ArmorStand,
+        Arrow,
+        Bat,
+        Bee,
+        Blaze,
+        Boat,
+        Cat,
+        CaveSpider,
+        ChestMinecart,
+        Chicken,
+        Cod,
+        CommandBlockMinecart,
+        Cow,
+        Creeper,
+        Dolphin,
+        Donkey,
+        DragonFireball,
+        Drowned,
+        Egg,
+        ElderGuardian,
+        EndCrystal,
+        EnderDragon,
+        EnderPearl,
+        Enderman,
+        Endermite,
+        Evoker,
+        EvokerFangs,
+        ExperienceBottle,
+        ExperienceOrb,
+        EyeOfEnder,
+        FallingBlock,
+        Fireball,
+        FireworkRocket,
+        Fox,
+        FurnaceMinecart,
+        Ghast,
+        Giant,
+        Guardian,
+        Hoglin,
+        HopperMinecart,
+        Horse,
+        Husk,
+        Illusioner,
+        IronGolem,
+        Item,
+        ItemFrame,
+        LeashKnot,
+        LightningBolt,
+        Llama,
+        LlamaSpit,
+        MagmaCube,
+        Minecart,
+        Mooshroom,
+        Mule,
+        Ocelot,
+        Painting,
+        Panda,
+        Parrot,
+        Phantom,
+        Pig,
+        Piglin,
+        PiglinBrute,
+        Pillager,
+        PolarBear,
+        ThrownPotion,
+        Pufferfish,
+        Rabbit,
+        Ravager,
+        Salmon,
+        Sheep,
+        Shulker,
+        ShulkerBullet,
+        Silverfish,
+        Skeleton,
+        SkeletonHorse,
+        Slime,
+        SmallFireball,
+        SnowGolem,
+        Snowball,
+        SpawnerMinecart,
+        SpectralArrow,
+        Spider,
+        Squid,
+        Stray,
+        Strider,
+        Tnt,
+        TntMinecart,
+        TraderLlama,
+        Trident,
+        TropicalFish,
+        Turtle,
+        Vex,
+        Villager,
+        Vindicator,
+        WanderingTrader,
+        Witch,
+        Wither,
+        WitherSkeleton,
+        WitherSkull,
+        Wolf,
+        Zoglin,
+        Zombie,
+        ZombieHorse,
+        ZombifiedPiglin,
+        ZombieVillager
+    }
+
     public static class EnumExtensions
     {
         public static string Prefex(this CoordinateType type)
@@ -64,6 +194,19 @@ namespace Cript.Data
             {
                 case CoordinateType.Relative: return "~";
                 case CoordinateType.Local: return "^";
+                default: return "";
+            }
+        }
+        public static string Prefex(this SelectorType type)
+        {
+            switch (type)
+            {
+                case SelectorType.S: return "@s";
+                case SelectorType.R: return "@r";
+                case SelectorType.E: return "@e";
+                case SelectorType.A: return "@a";
+                case SelectorType.P: return "@p";
+                case SelectorType.None:
                 default: return "";
             }
         }
