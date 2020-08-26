@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    class ExecuteStatement
+    class Dimension
     {
     }
 }

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,7 +39,20 @@
       <HintPath>..\packages\Syroot.IO.BinaryData.4.0.4\lib\net45\Syroot.BinaryData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0-preview.7.20364.11\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,13 +61,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\IExecutable\Align.cs" />
+    <Compile Include="Data\IExecutable\Anchor.cs" />
+    <Compile Include="Data\Axis.cs" />
     <Compile Include="Data\Coordinate.cs" />
-    <Compile Include="Data\Enums.cs" />
+    <Compile Include="Data\CoordinateType.cs" />
+    <Compile Include="Data\EntityType.cs" />
+    <Compile Include="Data\EnumExtensions.cs" />
     <Compile Include="Data\ExecuteStatement.cs" />
+    <Compile Include="Data\Gamemode.cs" />
+    <Compile Include="Data\IExecutable\Facing.cs" />
     <Compile Include="Data\IntRange.cs" />
-    <Compile Include="Data\ScoreboardCheck.cs" />
+    <Compile Include="Data\SelectorType.cs" />
     <Compile Include="Data\Tag.cs" />
-    <Compile Include="Data\TargetSelector.cs" />
+    <Compile Include="Data\IExecutable\Selector.cs" />
+    <Compile Include="Data\TargetSorting.cs" />
     <Compile Include="Nbt\NBTFile.cs" />
     <Compile Include="Nbt\TAG.cs" />
     <Compile Include="Nbt\TAG_Byte.cs" />
@@ -76,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

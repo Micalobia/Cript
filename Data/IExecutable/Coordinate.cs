@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    struct Coordinate
+    public struct Coordinate
     {
         #region Variables
         private double _x;

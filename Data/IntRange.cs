@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    struct IntRange
+    public struct IntRange
     {
         public const int Size = 10;
         
@@ -22,6 +22,8 @@ namespace Cript.Data
         public bool LeftOpen { get => _leftOpen; set => _leftOpen = value; }
         public bool RightOpen { get => _rightOpen; set => _rightOpen = value; }
         public bool Open => LeftOpen && RightOpen;
+        public bool HasOpen => LeftOpen || RightOpen;
+        public bool Skewed => LeftOpen ^ RightOpen;
 
         public IntRange(int left, int right) : this(left, right, false, false) { }
         public IntRange(int left, int right, bool leftOpen, bool rightOpen)
@@ -33,6 +35,8 @@ namespace Cript.Data
         }
 
         public bool InRange(int value) => (LeftOpen || value >= Left) && (RightOpen || value <= Right);
+
+        public override string ToString() => $"{(LeftOpen ? "" : Left.ToString())}{(HasOpen ? ".." : "")}{(RightOpen || !LeftOpen ? "" : Right.ToString())}";
 
         public override bool Equals(object obj)
         {
