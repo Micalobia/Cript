@@ -16,6 +16,7 @@ namespace Cript.Data
         public void At(Selector targets) => conditions.Add(new ExecuteSegment<Selector>(targets, 1));
         public void Facing(Coordinate pos) => conditions.Add(new ExecuteSegment<Facing>(new Facing(pos), 0));
         public void Facing(Selector targets, Anchor anchor) => conditions.Add(new ExecuteSegment<Facing>(new Facing(targets, anchor), 1));
+        public void In(Dimension dimension) => conditions.Add(new ExecuteSegment<Dimension>(dimension, 0));
         
     }
 }
