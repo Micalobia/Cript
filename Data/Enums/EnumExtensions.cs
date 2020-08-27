@@ -13,6 +13,7 @@ namespace Cript.Data
                 default: return "";
             }
         }
+        public static string Prefex(this RotationType type) => type == RotationType.Relative ? "~" : "";
         public static string Prefex(this SelectorType type)
         {
             switch (type)

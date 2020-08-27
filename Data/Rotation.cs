@@ -32,8 +32,8 @@ namespace Cript.Data
         public static readonly Rotation Zero = new Rotation();
         public static readonly Rotation South = Zero;
         public static readonly Rotation West = new Rotation(90d, 0d);
-        public static readonly Rotation East = new Rotation(-90d,0);
-        public static readonly Rotation North = new Rotation(-180,0);
+        public static readonly Rotation East = new Rotation(-90d, 0);
+        public static readonly Rotation North = new Rotation(-180, 0);
         #endregion
 
         #region Constructors
@@ -46,6 +46,10 @@ namespace Cript.Data
             Yaw = yaw;
             Pitch = pitch;
         }
+        #endregion
+
+        #region Overrides
+        public override string ToString() => string.Format("{0}{1:0.00} {2}{3:0.00}", YawType.Prefex(), Yaw, PitchType.Prefex(), Pitch);
         #endregion
 
         public static implicit operator Coordinate(Rotation r) => r.HasRelative ? throw new ArgumentException("Cannot cast relative rotation to coordinate") : Coordinate.Backward.Rotated(r.Pitch, Axis.X).Rotated(r.Yaw, Axis.Y);
