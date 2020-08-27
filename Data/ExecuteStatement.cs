@@ -18,5 +18,7 @@ namespace Cript.Data
         public void In(Dimension dimension) => conditions.Add(new ExecuteSegment<Dimension>(dimension, 0));
         public void Positioned(Coordinate pos) => conditions.Add(new ExecuteSegment<Positioned>(new Positioned(pos), 0));
         public void Positioned(Selector targets) => conditions.Add(new ExecuteSegment<Positioned>(new Positioned(targets), 1));
+        public void Rotated(Rotation rot) => conditions.Add(new ExecuteSegment<Rotated>(new Rotated(rot), 0));
+        public void Rotated(Selector targets) => conditions.Add(new ExecuteSegment<Rotated>(new Rotated(targets), 1));
     }
 }
