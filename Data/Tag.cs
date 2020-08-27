@@ -22,29 +22,4 @@ namespace Cript.Data
             Negate = negate;
         }
     }
-
-    public struct Advancement
-    {
-        public string NamespacedID;
-        public bool Value;
-        public string Criteria;
-        public Advancement(string namespacedID, bool value = true, string criteria = null)
-        {
-            NamespacedID = namespacedID;
-            Value = value;
-            Criteria = criteria;
-        }
-        public override string ToString() => $"{NamespacedID}={(Criteria == null ? Value.ToString() : $"{{{Criteria}={Value}}}")}";
-    }
-
-    public struct Predicate
-    {
-        public bool Negate;
-        public string NamespacedID;
-        public Predicate(string name, bool negate = false)
-        {
-            NamespacedID = name;
-            Negate = negate;
-        }
-    }
 }
