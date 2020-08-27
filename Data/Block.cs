@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    class Block
+    public class Block
     {
         public string BlockID;
         public Dictionary<string, object> BlockStates;

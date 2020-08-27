@@ -49,7 +49,7 @@ namespace Cript.Data
         #endregion
 
         #region Overrides
-        public override string ToString() => string.Format("{0}{1:0.00} {2}{3:0.00}", YawType.Prefex(), Yaw, PitchType.Prefex(), Pitch);
+        public override string ToString() => string.Format("{0}{1:0.0#} {2}{3:0.0#}", YawType.Prefex(), Yaw, PitchType.Prefex(), Pitch);
         #endregion
 
         public static implicit operator Coordinate(Rotation r) => r.HasRelative ? throw new ArgumentException("Cannot cast relative rotation to coordinate") : Coordinate.Backward.Rotated(r.Pitch, Axis.X).Rotated(r.Yaw, Axis.Y);

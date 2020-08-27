@@ -27,9 +27,21 @@ namespace Cript.Data
                 default: return "";
             }
         }
+        public static string Symbol(this Comparison type)
+        {
+            switch (type)
+            {
+                case Comparison.LessThan: return "<";
+                case Comparison.LessThanOrEqualTo: return "<=";
+                case Comparison.GreaterThan: return ">";
+                case Comparison.GreaterThanOrEqualTo: return ">=";
+                case Comparison.EqualTo:
+                default: return "=";
+            }
+        }
         public static string Namespaced(this EntityType type)
         {
-            switch(type)
+            switch (type)
             {
                 case EntityType.AreaEffectCloud: return "minecraft:area_effect_cloud";
                 case EntityType.ArmorStand: return "minecraft:armor_stand";

@@ -183,7 +183,7 @@ namespace Cript.Data
             hashCode = hashCode * -1521134295 + ZType.GetHashCode();
             return hashCode;
         }
-        public override string ToString() => string.Format("{0}{1:0.00} {2}{3:0.00} {4}{5:0.00}", XType.Prefex(), X, YType.Prefex(), Y, ZType.Prefex(), Z);
+        public override string ToString() => string.Format("{0}{1:0.0#} {2}{3:0.0#} {4}{5:0.0#}", XType.Prefex(), X, YType.Prefex(), Y, ZType.Prefex(), Z);
         public string ToString(int decimalPlaces) => string.Format(string.Format("{{0}}{{1:{0}}} {{2}}{{3:{0}}} {{4}}{{5:{0}}}", "0." + new string('0', decimalPlaces)), XType.Prefex(), X, YType.Prefex(), Y, ZType.Prefex(), Z);
         #endregion
 
