@@ -9,7 +9,6 @@ namespace Cript.Data
     public class ExecuteStatement
     {
         List<ExecuteSegment<IExecutable>> conditions = new List<ExecuteSegment<IExecutable>>();
-
         public void Align(Align axes) => conditions.Add(new ExecuteSegment<Align>(axes, default));
         public void Anchored(Anchor anchor) => conditions.Add(new ExecuteSegment<Anchor>(anchor, default));
         public void As(Selector targets) => conditions.Add(new ExecuteSegment<Selector>(targets, 0));
