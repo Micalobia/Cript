@@ -23,9 +23,9 @@ namespace Cript.Data
         public double X { get => _x; set => _x = value; }
         public double Y { get => _y; set => _y = value; }
         public double Z { get => _z; set => _z = value; }
-        public CoordinateType XType { get => _xType; set => _xType = (IsLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
-        public CoordinateType YType { get => _yType; set => _yType = (IsLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
-        public CoordinateType ZType { get => _zType; set => _zType = (IsLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
+        public CoordinateType XType { get => _xType; set => _xType = (IsCompletelyLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
+        public CoordinateType YType { get => _yType; set => _yType = (IsCompletelyLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
+        public CoordinateType ZType { get => _zType; set => _zType = (IsCompletelyLocal && value != CoordinateType.Local) || value == CoordinateType.Local ? throw new Exception("Can't mix local coordinates") : value; }
         public CoordinateType Type
         {
             set
@@ -44,11 +44,27 @@ namespace Cript.Data
                 return ret;
             }
         }
-        public bool IsLocal => XType == CoordinateType.Local && YType == CoordinateType.Local && ZType == CoordinateType.Local;
+        public bool IsCompletelyAbsolute => XType == CoordinateType.Absolute && YType == CoordinateType.Absolute && ZType == CoordinateType.Absolute;
+        public bool IsCompletelyRelative => XType == CoordinateType.Relative && YType == CoordinateType.Relative && ZType == CoordinateType.Relative;
+        public bool IsCompletelyLocal => XType == CoordinateType.Local && YType == CoordinateType.Local && ZType == CoordinateType.Local;
         #endregion
 
         #region Private Properties
         private bool HasAbsolute => XType == CoordinateType.Absolute || YType == CoordinateType.Absolute || ZType == CoordinateType.Absolute;
+        #endregion
+
+        #region Constants
+        public static readonly Coordinate Zero = new Coordinate();
+        public static readonly Coordinate RelativeZero = new Coordinate(0, 0, 0, CoordinateType.Relative);
+        public static readonly Coordinate LocalZero = new Coordinate(0, 0, 0, CoordinateType.Local);
+        public static readonly Coordinate RelativeUp = new Coordinate(0, 1, 0, CoordinateType.Relative);
+        public static readonly Coordinate RelativeDown = new Coordinate(0, -1, 0, CoordinateType.Relative);
+        public static readonly Coordinate LocalUp = new Coordinate(0, 1, 0, CoordinateType.Local);
+        public static readonly Coordinate LocalDown = new Coordinate(0, -1, 0, CoordinateType.Local);
+        public static readonly Coordinate Left = new Coordinate(1, 0, 0, CoordinateType.Local);
+        public static readonly Coordinate Right = new Coordinate(-1, 0, 0, CoordinateType.Local);
+        public static readonly Coordinate Forward = new Coordinate(0, 0, 1, CoordinateType.Local);
+        public static readonly Coordinate Backward = new Coordinate(0, 0, -1, CoordinateType.Local);
         #endregion
 
         #region Constructors
@@ -99,7 +115,7 @@ namespace Cript.Data
                     Z = tu * cos - tv * sin;
                     X = tv * cos + tu * sin;
                     break;
-                
+
                 case Axis.Z:
                 default:
                     if (XType == CoordinateType.Absolute || YType == CoordinateType.Absolute) throw new Exception("Cannot rotate absolute coordinates");
@@ -174,6 +190,34 @@ namespace Cript.Data
         #region Operators
         public static Coordinate operator *(Coordinate a, double b) => a.HasAbsolute ? throw new ArgumentException("Cannot multiply absolute coordinates", "a") : new Coordinate(a.X * b, a.Y * b, a.Z * b, a.XType, a.YType, a.ZType);
         public static Coordinate operator /(Coordinate a, double b) => a.HasAbsolute ? throw new ArgumentException("Cannot divide absolute coordinates", "a") : new Coordinate(a.X / b, a.Y / b, a.Z / b, a.XType, a.YType, a.ZType);
+        public static Coordinate operator +(Coordinate a, Coordinate b)
+        {
+            bool al = a.IsCompletelyLocal;
+            bool bl = b.IsCompletelyLocal;
+            if (al && bl) return new Coordinate(a.X + b.Y, a.Y + b.Y, a.Z + b.Z, CoordinateType.Local);
+            if (al || bl) throw new ArgumentException("Can only add local coordinates to other local coordinates");
+            bool br = b.IsCompletelyRelative;
+            if(br) return new Coordinate(a.X + b.Y, a.Y + b.Y, a.Z + b.Z, a.XType, a.YType, a.ZType);
+            throw new ArgumentException("Cannot add absolute coordinates onto another coordinate");
+        }
+        public static Coordinate operator -(Coordinate a, Coordinate b)
+        {
+            bool al = a.IsCompletelyLocal;
+            bool bl = b.IsCompletelyLocal;
+            if (al && bl) return new Coordinate(a.X - b.Y, a.Y - b.Y, a.Z - b.Z, CoordinateType.Local);
+            if (al || bl) throw new ArgumentException("Can only subtract local coordinates from other local coordinates");
+            bool br = b.IsCompletelyRelative;
+            if (br) return new Coordinate(a.X - b.Y, a.Y - b.Y, a.Z - b.Z, a.XType, a.YType, a.ZType);
+            throw new ArgumentException("Cannot subtract absolute coordinates from another coordinate");
+        }
+        public static explicit operator Rotation(Coordinate c)
+        {
+            if (!c.IsCompletelyLocal) throw new ArgumentException("Can only cast local coordinates to rotations");
+            double yaw = Math.Atan2(c.X, c.Z);
+            c.Rotate(-yaw,Axis.Y);
+            double pitch = Math.Atan2(c.Z, c.Y);
+            return new Rotation(yaw, pitch);
+        }
         #endregion
     }
 }
