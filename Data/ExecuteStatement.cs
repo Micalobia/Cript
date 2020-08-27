@@ -20,7 +20,7 @@ namespace Cript.Data
         public void Positioned(Selector targets) => conditions.Add(new ExecuteSegment<Positioned>(new Positioned(targets), 1));
         public void Rotated(Rotation rot) => conditions.Add(new ExecuteSegment<Rotated>(new Rotated(rot), 0));
         public void Rotated(Selector targets) => conditions.Add(new ExecuteSegment<Rotated>(new Rotated(targets), 1));
-        public void IfBlock(Coordinate pos, Block block) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(pos, block, false),0));
+        public void IfBlock(Coordinate pos, Block block) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(pos, block, false), 0));
         public void IfBlocks(Coordinate start, Coordinate end, Coordinate destination, ScanMode scanMode) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(start, end, destination, scanMode, false), 0));
         public void IfData(Coordinate pos, string path) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(pos, path, false), 0));
         public void IfData(Selector target, string path) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(target, path, false), 0));
@@ -38,6 +38,12 @@ namespace Cript.Data
         public void UnlessPredicate(Predicate predicate) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(predicate, true), 0));
         public void UnlessScore(Selector target, Scoreboard targetObjective, Comparison compare, Selector source, Scoreboard sourceObjective) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(target, targetObjective, compare, source, sourceObjective, true), 0));
         public void UnlessScore(Selector target, Scoreboard targetObjective, IntRange range) => conditions.Add(new ExecuteSegment<IfUnless>(new IfUnless(target, targetObjective, range, true), 0));
+        public void StoreBlock(Coordinate targetPos, string path, DataLiteral type, double scale, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(targetPos, path, type, scale, success), 0));
+        public void StoreBossbar(string id, BossbarValue value, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(id, value, success), 1));
+        public void StoreEntity(Selector target, string path, DataLiteral type, double scale, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(target, path, type, scale, success), 2));
+        public void StoreScore(Selector targets, Scoreboard objective, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(targets, objective, success), 3));
+        public void StoreStorage(string target, string path, DataLiteral type, double scale, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(target, path, type, scale, success), 4));
+
 
         public override string ToString()
         {
