@@ -18,7 +18,7 @@ namespace Cript.Data
         public double dx = double.NaN;
         public double dy = double.NaN;
         public double dz = double.NaN;
-        public Dictionary<string, IntRange> scores = new Dictionary<string, IntRange>();
+        public Dictionary<Scoreboard, IntRange> scores = new Dictionary<Scoreboard, IntRange>();
         public List<Tag> tags = new List<Tag>();
         public string team = null;
         public int limit = -1;
