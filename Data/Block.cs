@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Cript.Data
 {
-    class BlockPredicate
+    class Block
     {
         public string BlockID;
         public Dictionary<string, object> BlockStates;
         public TAG_Compound BlockTag;
-        public BlockPredicate(string blockID) : this(blockID, new TAG_Compound()) { }
-        public BlockPredicate(string blockID, TAG_Compound blockTag)
+        public Block(string blockID) : this(blockID, new TAG_Compound()) { }
+        public Block(string blockID, TAG_Compound blockTag)
         {
             BlockID = blockID;
             BlockTag = blockTag;
