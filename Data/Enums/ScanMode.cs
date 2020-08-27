@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cript.Data.Enums
+namespace Cript.Data
 {
     public enum ScanMode
     {
