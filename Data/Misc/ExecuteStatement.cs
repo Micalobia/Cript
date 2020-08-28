@@ -9,6 +9,7 @@ namespace Cript.Data
     public class ExecuteStatement
     {
         List<ExecuteSegment<IExecutable>> conditions = new List<ExecuteSegment<IExecutable>>();
+        string run = "say hi";
         public void Align(Align axes) => conditions.Add(new ExecuteSegment<Align>(axes, default));
         public void Anchored(Anchor anchor) => conditions.Add(new ExecuteSegment<Anchor>(anchor, default));
         public void As(Selector targets) => conditions.Add(new ExecuteSegment<Selector>(targets, 0));
@@ -43,18 +44,19 @@ namespace Cript.Data
         public void StoreEntity(Selector target, string path, DataLiteral type, double scale, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(target, path, type, scale, success), 2));
         public void StoreScore(Selector targets, Scoreboard objective, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(targets, objective, success), 3));
         public void StoreStorage(string target, string path, DataLiteral type, double scale, bool success = false) => conditions.Add(new ExecuteSegment<Store>(new Store(target, path, type, scale, success), 4));
-
+        public string Run(string command) { run = command; return ToString(); }
+        public string Run(CommandBuilder command) { run = command.ToString(); return ToString(); }
 
         public override string ToString()
         {
             StringBuilder b = new StringBuilder(64);
             b.Append("execute ");
-            foreach (var t in conditions)
+            foreach (ExecuteSegment<IExecutable> t in conditions)
             {
                 b.Append(t.ToString());
                 b.Append(' ');
             }
-            b.Append("run say Hello World!");
+            b.Append($"run {run}");
             return b.ToString();
         }
     }
