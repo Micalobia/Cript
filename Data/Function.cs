@@ -9,6 +9,7 @@ namespace Cript.Data
 {
     class Function : IList<string>
     {
+        private string _name;
         private List<string> _commands;
 
         public string this[int index] { get => _commands[index]; set => _commands[index] = value; }
@@ -16,6 +17,8 @@ namespace Cript.Data
         public int Count => _commands.Count;
 
         public bool IsReadOnly => ((IList<string>)_commands).IsReadOnly;
+
+        public string Name { get => _name; set => _name = value; }
 
         public void Add(string item) => _commands.Add(item);
         public void Clear() => _commands.Clear();
