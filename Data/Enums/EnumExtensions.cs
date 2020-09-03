@@ -2,7 +2,7 @@
 
 namespace Cript.Data
 {
-    public static class EnumExtensions
+    internal static class EnumExtensions
     {
         public static string Prefex(this CoordinateType type)
         {
@@ -37,6 +37,14 @@ namespace Cript.Data
                 case Comparison.GreaterThanOrEqualTo: return ">=";
                 case Comparison.EqualTo:
                 default: return "=";
+            }
+        }
+        public static int PackFormat(this MinecraftVersion version)
+        {
+            switch(version)
+            {
+                case MinecraftVersion.Version1_16_2:
+                default: return 6;
             }
         }
         public static string Namespaced(this EntityType type)
