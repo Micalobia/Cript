@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cript.Data
+namespace Cript.Data.Misc
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public struct IntRange
+    public struct FloatRange
     {
         private int _left;
         private int _right;
@@ -25,8 +23,8 @@ namespace Cript.Data
         public bool HasOpen => LeftOpen || RightOpen;
         public bool Skewed => LeftOpen ^ RightOpen;
 
-        public IntRange(int left, int right) : this(left, right, false, false) { }
-        public IntRange(int left, int right, bool leftOpen, bool rightOpen)
+        public FloatRange(int left, int right) : this(left, right, false, false) { }
+        public FloatRange(int left, int right, bool leftOpen, bool rightOpen)
         {
             _left = left;
             _right = right;
@@ -43,10 +41,10 @@ namespace Cript.Data
 
         public override bool Equals(object obj)
         {
-            if (!(obj is IntRange))
+            if (!(obj is FloatRange))
                 return false;
 
-            IntRange range = (IntRange)obj;
+            FloatRange range = (FloatRange)obj;
             return Left == range.Left &&
                    Right == range.Right &&
                    LeftOpen == range.LeftOpen &&
