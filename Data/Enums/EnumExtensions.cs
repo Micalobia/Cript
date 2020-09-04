@@ -47,6 +47,25 @@ namespace Cript.Data
                 default: return 6;
             }
         }
+        public static string Format(this LootType loot)
+        {
+            switch(loot)
+            {
+                case LootType.AdvancementEntity: return "advancement_entity";
+                case LootType.AdvancementReward: return "advancement_reward";
+                case LootType.Barter: return "barter";
+                case LootType.Block: return "block";
+                case LootType.Chest: return "chest";
+                case LootType.Command: return "command";
+                case LootType.Entity: return "entity";
+                case LootType.Fishing: return "fishing";
+                case LootType.Generic: return "generic";
+                case LootType.Gift: return "gift";
+                case LootType.Selector: return "selector";
+                case LootType.Empty:
+                default: return "empty";
+            }
+        }
         public static string Namespaced(this EntityType type)
         {
             switch (type)
