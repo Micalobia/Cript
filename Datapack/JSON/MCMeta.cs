@@ -16,8 +16,8 @@ namespace Cript.Datapack
         [JsonObject(MemberSerialization.OptIn)]
         private class Pack
         {
-            [JsonProperty(PropertyName = "pack_format")] public int PackFormat { get; set; }
-            [JsonProperty(PropertyName = "description")] public string Description { get; set; }
+            [JsonProperty("pack_format")] public int PackFormat { get; set; }
+            [JsonProperty("description")] public string Description { get; set; }
         }
         public MCMeta() => pack = new Pack();
     }
